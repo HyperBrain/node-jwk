@@ -4,7 +4,7 @@
   "description": "JWK support",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src --ext --ext .js || exit 0"
+    "lint": "eslint . --ext .js || exit 0"
   },
   "author": "Frank Schmid <fschmid740@googlemail.com>",
   "license": "Artistic-2.0",
@@ -26,10 +26,15 @@
   ],
   "bugs": "https://github.com/HyperBrain/node-jwk/issues",
   "dependencies": {
+    "base64url": "^2.0.0",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint": "^3.17.1",
     "eslint-plugin-lodash": "^2.3.5",
-    "eslint-plugin-promise": "^3.5.0"
+    "eslint-plugin-mocha": "^4.8.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }

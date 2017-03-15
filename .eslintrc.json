@@ -5,12 +5,14 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:lodash/recommended"
+    "plugin:lodash/recommended",
+    "plugin:mocha/recommended"
   ],
   "installedESLint": true,
   "plugins": [
     "promise",
-    "lodash"
+    "lodash",
+    "mocha"
   ],
   "rules": {
     "indent": [
@@ -36,6 +38,7 @@
     "promise/avoid-new": "warn",
     "lodash/import-scope": "off",
     "lodash/preferred-alias": "off",
-    "lodash/prop-shorthand": "off"
+    "lodash/prop-shorthand": "off",
+    "mocha/no-exclusive-tests": "error"
   }
 }
