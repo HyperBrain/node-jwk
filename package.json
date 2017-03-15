@@ -1,0 +1,35 @@
+{
+  "name": "node-jwk",
+  "version": "0.0.1",
+  "description": "JWK support",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src --ext --ext .js || exit 0"
+  },
+  "author": "Frank Schmid <fschmid740@googlemail.com>",
+  "license": "Artistic-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HyperBrain/node-jwk.git"
+  },
+  "engines": {
+    "node": ">=4.3.1"
+  },
+  "keywords": [
+    "jwk",
+    "jws",
+    "jwt",
+    "security",
+    "token",
+    "convert",
+    "parse"
+  ],
+  "bugs": "https://github.com/HyperBrain/node-jwk/issues",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "eslint-plugin-lodash": "^2.3.5",
+    "eslint-plugin-promise": "^3.5.0"
+  }
+}
