@@ -10,9 +10,16 @@ describe('EC key', () => {
 	it('should be initialized from public key objects', () => {
 
 		const keySet = JWKSet.fromObject(publicKS);
-		const jwk = keySet.findKeyById('2011-04-29');
+		const jwk = keySet.findKeyById('k1');
 
-		expect(keySet.keys).to.satisfy(k => /(?!.*_invalid)$/.test(k.kid));
+		expect(jwk.kid).to.be.equal('k1');
+		expect(jwk.key.hasPrivateKey).to.be.false;
+
+		const pubKey = jwk.key.toPublicKeyPEM();
+		expect(pubKey).to.be.equal(`-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEJ41kktcqHeQYVdFMlv6AorbqOlmQ
+ESJqR4ZKiozpw0Lte4nZ4bm5uzeImkKvHADS+iBxSoBJGXyR7OOkh8dFvg==
+-----END PUBLIC KEY-----`);
 
 	});
 
@@ -25,35 +32,17 @@ describe('EC key', () => {
 		expect(jwk.key.hasPrivateKey).to.be.true;
 
 		const pubKey = jwk.key.toPublicKeyPEM();
-		console.log(pubKey);
-		exit();
 		expect(pubKey).to.be.equal(`-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoebGcQSuuPiLJX
-ZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tS
-oc/BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ/2W+5JsGY4Hc5n9yBXArwl93lqt
-7/RN5w6Cf0h4QyQ5v+65YGjQR0/FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0
-zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt+bFTWhAI4vMQFh6WeZu0f
-M4lFd2NcRwr3XPksINHaQ+G/xBniIqbw0Ls1jF44+csFCur+kEgU8awapJzKnqDK
-gwIDAQAB
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEMKBCTNIcKUSDii11ySs3526iDZ8A
+iTo7Tu6KPAqv7D7gS2XpJFbZiItSs3m9+9Ue6GnvHw/GW2ZZaVtszggXIw==
 -----END PUBLIC KEY-----`);
 
-	});
-
-	it('should be initialized from private key objects', () => {
-
-		const keySet = JWKSet.fromObject(privateKS);
-		const jwk = keySet.findKeyById('2011-04-29');
-
-		const pubKey = jwk.key.toPublicKeyPEM();
-		expect(pubKey).to.be.equal(`-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoebGcQSuuPiLJX
-ZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tS
-oc/BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ/2W+5JsGY4Hc5n9yBXArwl93lqt
-7/RN5w6Cf0h4QyQ5v+65YGjQR0/FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0
-zgdAZHzu6qMQvRL5hajrn1n91CbOpbISD08qNLyrdkt+bFTWhAI4vMQFh6WeZu0f
-M4lFd2NcRwr3XPksINHaQ+G/xBniIqbw0Ls1jF44+csFCur+kEgU8awapJzKnqDK
-gwIDAQAB
------END PUBLIC KEY-----`);
+	const privKey = jwk.key.toPrivateKeyPEM();
+	expect(privKey).to.be.equal(`-----BEGIN EC PRIVATE KEY-----
+MHcCAQEEIPO9DAeoH7kyeB7VJ1L2DMiaa+XlGTT+AZON21XY93gBoAoGCCqGSM49
+AwEHoUQDQgAEMKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D7gS2XpJFbZ
+iItSs3m9+9Ue6GnvHw/GW2ZZaVtszggXIw==
+-----END EC PRIVATE KEY-----`);
 
 	});
 
