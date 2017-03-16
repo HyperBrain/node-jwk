@@ -8,11 +8,84 @@ enable the direct use of JWK formatted keys with other node modules like
 
 ## Usage
 
-_will come_
+The module offers the classes `JWK` and `JWKSet` to work with JWK encoded keys
+or key sets.
 
-## Documentation
+You can instantiate either of the objects from a stringified JSON or an object.
+```
+const njwk = require('node-jwk');
 
-_will come_
+const myKey = njwk.JWK.fromJSON(myJSONString);
+const myKeySet = njwk.JWKSet.fromObject(myKeySet);
+```
+
+### Keysets (JWKSet)
+
+Keysets can contain a number of different keys which are unique by their _kid_.
+
+#### JWKSet.findKeyById(kid)
+
+The JWKSet class offers the `findKeyById` method that will let you grab a key
+by its id and returns it wrapped in a JWK object.
+
+#### JWKSet.findKeysByUse(use)
+
+There might be cases where you want to use a key designated for encoding/decoding or
+signing/verification. With `findKeysByUse` you can retrieve an array of all
+contained keys that match the use given.
+
+But remember that the use property is specified as OPTIONAL, so is the content of
+it. Be prepared that keys you get from 3rd party could miss it.
+
+#### JWKSet.keys
+
+Returns all keys as an array of JWK objects.
+
+#### JWKSet.fromObject(object) JWKSet.fromJSON(string)
+
+Factory to instantiate JWKSet objects. This method will throw on invalid
+keysets (the keyset structure or invalid JSON). According to the specification
+(RFC) invalid keys contained in a valid set are ignored.
+
+
+### Keys (JWK)
+
+All standard JWK properties are exposed by the JWK object. Be aware that per
+specification all properties but `kty` and `kid` are optional. Here's a list:
+```
+	kid
+	kty
+	use
+	key_ops
+	alg
+```
+
+#### JWK.key
+
+Through the key property you can access the key algorithm specific functionality.
+
+##### JWK.key.hasPrivateKey
+
+Returns true if the key contains a private key part.
+
+##### JWK.key.toPublicKeyPEM() => String
+
+Generates a PEM that contains the public key of the JWK. This can be used
+directly as key in OpenSSL or other node modules and works for EC as well as
+RSA keys.
+
+##### JWK.key.toPrivateKeyPEM() => String
+
+Generates a PEM that contains the private key of the JWK. This can be used
+directly as key in OpenSSL or other node modules and works for EC as well as
+RSA keys.
+
+#### JWK.fromObject(object) JWK.fromJSON(string)
+
+Factory to instantiate JWK objects. This method will throw on invalid
+keys (the keyset structure or invalid JSON).
+Normally you should use keysets to manage your keys instead of single keys.
+
 
 ## Examples
 
